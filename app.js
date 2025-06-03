@@ -25,20 +25,19 @@ function rqListener(req, res) {
       console.log("chunk:", chunk);
       body.push(chunk);
     });
-
+    //  посмотреть когда выполняется код data end
     req.on("end", () => {
       const parsedBody = Buffer.concat(body).toString();
       console.log("parsedBody:", parsedBody);
       const message = parsedBody.split("=")[1];
       console.log("message:", message);
-      fs.writeFileSync("message.txt", "Dummy");
+      fs.writeFileSync("message.txt", message);
+      //fs.writeFileSync("message.text", "DUMMY");
+      res.statusCode = 302;
+      res.setHeader("Location", "/message");
+      console.log("i am here /message");
+      return res.end();
     });
-
-    fs.writeFileSync("message.text", "DUMMY");
-    res.statusCode = 302;
-    res.setHeader("Location", "/message");
-    console.log("i am here /message");
-    return res.end();
   }
 
   // console.log("req:finish", req.url); запрос для фавиконки
