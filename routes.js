@@ -30,7 +30,7 @@ const requestHandler = (req, res) => {
       const parsedBody = Buffer.concat(body).toString();
       console.log("parsedBody:eventListenet", parsedBody);
       //console.log("eventListenet")
-      const message = parsedBody.split("=")[1];
+      const message = parsedBody.split("=")[0];
       // console.log("message:", message);
       fs.writeFile("message.txt", message, (err) => {
         console.log("err:", err);
